@@ -49,7 +49,7 @@ class LHS(sp.linalg.LinearOperator):
 #
 on_the_fly = False # toggles between using a `hamiltnian` or a `quantum_LinearOperator` object
 # chain length
-L = 30
+L = 12
 # on-site spin size 
 S = "1/2"
 # translation transformation on the lattice sites [0,...,L-1]
