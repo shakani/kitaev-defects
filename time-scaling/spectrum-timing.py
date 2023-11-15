@@ -6,7 +6,7 @@ if __name__ == "__main__":
     
     # Initialize dataframe 
     df = pd.DataFrame(columns=['L', 'gs_time', 'sf_time'])
-    sizes = np.array([6 + 2*i for i in range(5)])
+    sizes = np.array([6, 8, 10, 12])
     gs_times = np.zeros(sizes.shape)
     sf_times = np.zeros(sizes.shape)
     
