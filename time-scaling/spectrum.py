@@ -74,9 +74,11 @@ class Spectrum():
         
         # construct operator for Hamiltonian in the ground state sector
         if self._on_the_fly:
-            self._H0 = quantum_LinearOperator(self._static, basis = self._basis0, dtype = np.float64, check_symm=False)
+            self._H0 = quantum_LinearOperator(self._static, basis = self._basis0, dtype = np.float64, 
+                                              check_symm = False, check_pcon = False, check_herm = False)
         else:
-            self._H0 = hamiltonian(self._static, [], basis = self._basis0, dtype = np.float64, check_symm=False)
+            self._H0 = hamiltonian(self._static, [], basis = self._basis0, dtype = np.float64, 
+                                   check_symm = False, check_pcon = False, check_herm = False)
             
         self._E0, self._psi0 = 0., None # default values for ground state & ground state energy
             
