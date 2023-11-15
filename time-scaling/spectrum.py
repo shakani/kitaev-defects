@@ -106,7 +106,7 @@ class Spectrum():
                 print(f"Computing momentum block q = {q}")
             
             # define block
-            block = dict(qblock = (T, q))
+            block = dict(qblock = (self._T, q))
             
             # define operator list for Op_shift_sector
             f = lambda i: np.exp(-2j * np.pi * q * i / self._L) / np.sqrt(self._L)
