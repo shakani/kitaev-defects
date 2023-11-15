@@ -125,4 +125,9 @@ class Spectrum():
                                  check_symm = False, check_pcon = False, check_herm = False)
                 
             # shift sectors
+            
+            # raise exception if ground state hasn't been comptued
+            if self._psi0 == None:
+                raise ValueError("Ground state has not been computed")
+            
             # psiA = basisq.Op_shift_sector(self._basis0, Op_list, self.)
