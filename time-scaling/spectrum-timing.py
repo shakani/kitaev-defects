@@ -26,4 +26,4 @@ if __name__ == "__main__":
         gs_times[i], sf_times[i] = gs_time - start, sf_time - start 
         
     df.L, df.gs_time, df.sf_time = sizes, gs_times, sf_times 
-    print(df)
+    df.to_csv('spectrum-times.csv')
