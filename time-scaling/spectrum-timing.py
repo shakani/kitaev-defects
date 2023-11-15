@@ -17,9 +17,11 @@ if __name__ == "__main__":
         # time ground state
         mySpectrum.compute_ground_state()
         gs_time = time.time() 
+        print(f'L = {L}, gs_time = {gs_time - start}')
         
         mySpectrum.compute_spectral_function()
         sf_time = time.time()
+        print(f'L = {L}, sf_time = {sf_time - start}')
         # print(f'Ground state time: {gs_time - start} \nSpectral function time: {sf_time - start}')
         gs_times[i], sf_times[i] = gs_time - start, sf_time - start 
         
