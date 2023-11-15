@@ -48,7 +48,7 @@ class Spectrum():
     https://quspin.github.io/QuSpin/examples/example26.html#example26-label
     '''
     
-    def __init__(self, on_the_fly: bool, L: int):
+    def __init__(self, on_the_fly: bool, L: int) -> None:
         '''
         Class constructor for wrapper (all initializations)
         '''
@@ -80,7 +80,7 @@ class Spectrum():
             
         self._E0, self._psi0 = 0., None # default values for ground state & ground state energy
             
-    def compute_ground_state(self, k: int = 1, which: str = "SA"):
+    def compute_ground_state(self, k: int = 1, which: str = "SA") -> None:
         """
         Computes `k` lowest energy states and energies of Hamiltonian.
         `which = "SA"` specifies smallest algebraic eigenvalue.
@@ -130,4 +130,10 @@ class Spectrum():
             if self._psi0 == None:
                 raise ValueError("Ground state has not been computed")
             
-            # psiA = basisq.Op_shift_sector(self._basis0, Op_list, self.)
+            psiA = basisq.Op_shift_sector(self._basis0, Op_list, self._psi0)
+            
+            # solve (z-H)|x> = |A> solve for |x> using iterative solver for each omega
+            for i, omega in enumerate(omegas):
+                lhs = LHS(Hq, omega, eta, self._E0)
+                x, *_ = sp.linalg.bicg(lhs, psiA)
+                G[i,j] = -np.vdot(psiA, x)/np.pi 
