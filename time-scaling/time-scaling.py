@@ -79,4 +79,14 @@ class Spectrum():
             self._H0 = hamiltonian(self._static, [], basis = self._basis0, dtype = np.float64)
             
     def compute_ground_state(self, k: int = 1, which: str = "SA"):
-        
+        """
+        Computes and returns `k` lowest energy states and energies of Hamiltonian.
+        `which = "SA"` specifies smallest algebraic eigenvalue.
+        """
+        [E0], psi0 = self._H0.eigsh(k = k, which = which)
+        psi0.ravel()
+        return [E0], psi0 
+    
+    def compute_spectral_function(self, w_min: float = 0, w_max: float = 1, dw: float = 0.01, eta: float = 0.1):
+        qs = np.arange(-self._L//2 + 1, self._L//2, 1)
+        omegas = np.arange()
