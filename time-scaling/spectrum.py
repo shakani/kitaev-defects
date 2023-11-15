@@ -65,7 +65,7 @@ class Spectrum():
         self._T = (np.arange(self._L)+1) % self._L # translation transformation on sites [0, ..., L-1]
         
         # construct basis
-        self._basis0 = spin_basis_general(self._L, S = self._S, m=0, pauli=False, kblock=(T,0))
+        self._basis0 = spin_basis_general(self._L, S = self._S, m=0, pauli=False, kblock=(self._T,0))
         
         # construct static list for Heisenberg chain
         self._Jzz_list = [[1.0,i,(i+1)%L] for i in range(self._L)]
