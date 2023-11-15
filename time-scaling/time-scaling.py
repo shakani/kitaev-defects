@@ -87,6 +87,39 @@ class Spectrum():
         psi0.ravel()
         return [E0], psi0 
     
-    def compute_spectral_function(self, w_min: float = 0, w_max: float = 1, dw: float = 0.01, eta: float = 0.1):
+    def compute_spectral_function(self, w_min: float = 0, w_max: float = 1, dw: float = 0.01, eta: float = 0.1, verbose = False):
+        """
+        Computes SzSz spectral function.
+        """
         qs = np.arange(-self._L//2 + 1, self._L//2, 1)
-        omegas = np.arange()
+        omegas = np.arange(w_min, w_max, dw)
+        
+        # Allocate array to store data
+        G = np.zeros(omegas.shape + qs.shape, dtype = np.complex128)
+        
+        # loop over momentum sectors
+        for j, q in enumerate(qs):
+            if verbose:
+                print(f"Computing momentum block q = {q}")
+            
+            # define block
+            block = dict(qblock = (T, q))
+            
+            # define operator list for Op_shift_sector
+            f = lambda i: np.exp(-2j * np.pi * q * i / self._L) / np.sqrt(self._L)
+            Op_list = [["z", [i], f(i)] for i in range(self._L)]
+            
+            # define basis
+            basisq = spin_basis_general(self._L, S = self._S, m = 0, pauli = False, **block)
+            
+            # define operators in the q-momentum sector
+            if self._on_the_fly:
+                Hq = quantum_LinearOperator(self._static, basis = basisq, dtype = np.complex128,
+                                            check_symm = False, check_pcon = False, check_herm = False)
+                
+            else:
+                Hq = hamiltonian(self._static, [], basis = basisq, dtype = np.complex128,
+                                 check_symm = False, check_pcon = False, check_herm = False)
+                
+            # shift sectors
+            # psiA = basisq.Op_shift_sector(self._basis0, Op_list, self.)
