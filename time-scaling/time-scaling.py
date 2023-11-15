@@ -1,6 +1,7 @@
 from __future__ import print_function, division
 #
 import sys,os
+import numpy.typing as npt 
 os.environ['KMP_DUPLICATE_LIB_OK']='True' # uncomment this line if omp error occurs on OSX for python 3
 os.environ['OMP_NUM_THREADS']='1' # set number of OpenMP threads to run in parallel
 os.environ['MKL_NUM_THREADS']='1' # set number of MKL threads to run in parallel
@@ -76,3 +77,6 @@ class Spectrum():
             self._H0 = quantum_LinearOperator(self._static, basis = self._basis0, dtype = np.float64)
         else:
             self._H0 = hamiltonian(self._static, [], basis = self._basis0, dtype = np.float64)
+            
+    def compute_ground_state(self, k: int = 1, which: str = "SA"):
+        
