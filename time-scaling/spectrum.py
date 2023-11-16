@@ -140,8 +140,16 @@ class Spectrum():
                 x, *_ = sp.linalg.bicg(lhs, psiA)
                 G[i,j] = -np.vdot(psiA, x)/np.pi 
                 
-    def compute_magnetic_spectral_function():
-        pass 
+    def compute_magnetic_spectral_function(self, w_min: float = 0, w_max: float = 1, dw: float = 0.01, eta: float = 0.1, verbose = False):
+        """
+        Computes <M^z(t) M^z(0)> spectral function. Equivalent to q = 0 cut of dynamical spin structure factor. 
+        """
+        
+        # frequencies to measure at
+        omegas = np.arange(w_min, w_max, dw)
+        
+        # allocate array to store correlation function
+        G = np.zeros(omegas.shape + qs.shape, dtype = np.complex128)
                 
 
 ########################################################################################################################
