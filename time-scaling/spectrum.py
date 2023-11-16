@@ -111,15 +111,18 @@ class Spectrum():
             if verbose:
                 print(f"Computing momentum block q = {q}")
             
-            # define block
-            block = dict(qblock = (self._T, q))
-            
             # define operator list for Op_shift_sector
             f = lambda i: np.exp(-2j * np.pi * q * i / self._L) / np.sqrt(self._L)
             Op_list = [["z", [i], f(i)] for i in range(self._L)]
             
-            # define basis
-            basisq = spin_basis_general(self._L, S = self._S, m = 0, pauli = False, **block)
+            if self._use_symm:
+                # define block
+                block = dict(qblock = (self._T, q))
+                # define basis
+                basisq = spin_basis_general(self._L, S = self._S, m = 0, pauli = False, **block)
+            else:
+                # define basis without symmetry blocks
+                basisq = spin_basis_general(self._L, S = self._S, m = 0, pauli = False)
             
             # define operators in the q-momentum sector
             if self._on_the_fly:
@@ -136,7 +139,10 @@ class Spectrum():
             if self._psi0 is None:
                 raise ValueError("Ground state has not been computed")
             
-            psiA = basisq.Op_shift_sector(self._basis0, Op_list, self._psi0)
+            if self._use_symm:
+                psiA = basisq.Op_shift_sector(self._basis0, Op_list, self._psi0)
+            else:
+                raise ValueError("Operator application in development.")
             
             # solve (z-H)|x> = |A> solve for |x> using iterative solver for each omega
             for i, omega in enumerate(omegas):
