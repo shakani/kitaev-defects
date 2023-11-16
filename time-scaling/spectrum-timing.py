@@ -6,7 +6,7 @@ if __name__ == "__main__":
     
     # Initialize dataframe 
     df = pd.DataFrame(columns=['L', 'gs_time', 'sf_time'])
-    sizes = np.array([8 + 2*n for n in range(5) if (8 + 2*n - 2)%4 != 0])
+    sizes = np.array([8 + 2*n for n in range(10) if (8 + 2*n - 2)%4 != 0])
     gs_times = np.zeros(sizes.shape)
     sf_times = np.zeros(sizes.shape)
     
