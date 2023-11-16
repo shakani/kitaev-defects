@@ -48,7 +48,7 @@ class Spectrum():
     https://quspin.github.io/QuSpin/examples/example26.html#example26-label
     '''
     
-    def __init__(self, on_the_fly: bool, L: int) -> None:
+    def __init__(self, on_the_fly: bool, L: int, use_symm: bool = True) -> None:
         '''
         Class constructor for wrapper (all initializations)
         '''
