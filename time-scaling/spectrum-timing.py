@@ -11,7 +11,7 @@ if __name__ == "__main__":
     sf_times = np.zeros(sizes.shape)
     
     for i, L in enumerate(sizes):
-        mySpectrum = Spectrum(on_the_fly=False, L=int(L))
+        mySpectrum = Spectrum(on_the_fly=False, L=int(L), use_symm=False)
         start = time.time()
         
         # time ground state
