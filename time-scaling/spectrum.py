@@ -54,6 +54,7 @@ class Spectrum():
         '''
         self._on_the_fly = on_the_fly   # toggles between using `hamiltonian` or `quantum_LinearOperator`
         self._L = L     # chain length
+        self._use_symm = use_symm
         
         # Error catching for Heisenberg chain from example
         if (self._L//2)%2 != 0:
@@ -63,7 +64,7 @@ class Spectrum():
         
         self._S = "1/2" # on-site spin size
         
-        if use_symm:
+        if self._use_symm:
             self._T = (np.arange(self._L)+1) % self._L # translation transformation on sites [0, ..., L-1]
             # construct basis
             self._basis0 = spin_basis_general(self._L, S = self._S, m=0, pauli=False, kblock=(self._T,0))
@@ -95,7 +96,7 @@ class Spectrum():
         
         self._E0, self._psi0 = E0, psi0
     
-    def compute_spectral_function(self, w_min: float = 0, w_max: float = 1, dw: float = 0.01, eta: float = 0.1, verbose = False):
+    def compute_spectral_function(self, w_min: float = 0, w_max: float = 1, dw: float = 0.01, eta: float = 0.1, verbose: bool = False):
         """
         Computes SzSz spectral function.
         """
